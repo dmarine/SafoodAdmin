@@ -61,7 +61,7 @@ export class FoodsComponent implements OnInit {
 
   editFood(food: Food, template: TemplateRef<any>): void {
     this.type = "edit"
-    this.titleModal = "Editar alergeno"
+    this.titleModal = "Editar comida"
     this.buttonModal = "Editar"
     this.food = food
 

@@ -17,7 +17,7 @@ export class AuthService {
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private config: Config, private router: Router) { }
 
   public async isAuthenticated(): Promise<boolean> {
-    const token: string = this.jwtHelper.tokenGetter();
+    const token: string = this.jwtHelper.tokenGetter()
     const checkToken: boolean = (token != null && !this.jwtHelper.isTokenExpired(token))
     if(!checkToken) { return checkToken }
 
@@ -38,12 +38,17 @@ export class AuthService {
     this.authorized = true
   }
 
-  login(email: string, password: string) {
-    return this.http.post<any>(`${this.config.API_URL}/api/auth/login`, { email, password }).toPromise().then(response => {
-      Cookies.set('token', response.access_token, { expires: (150.12 / response.expires_in) })
-      Cookies.set('token', response.access_token, { domain: this.config.SITE_URL })
+  async login(email: string, password: string) {
+    const response = await this.http.post<any>(`${this.config.API_URL}/api/auth/login`, { email, password }).toPromise();
+    Cookies.set('token', response.access_token, { expires: (150.12 / response.expires_in) })
+    Cookies.set('token', response.access_token, { domain: this.config.SITE_URL })
+    this.router.navigate(['/'])
+  }
 
-      if(response.user.role) { this.router.navigate(['/']) } else { document.location.href = this.config.SITE_URL }
-    })
+  logout() {
+    this.http.post<any>(`${this.config.API_URL}/api/auth/logout`, null).subscribe();
+    Cookies.remove('token')
+    Cookies.remove('token', { domain: this.config.SITE_URL })
+    this.router.navigate(['/'])
   }
 }

@@ -38,7 +38,7 @@ export class UsersComponent implements OnInit {
 
   addUser(template: TemplateRef<any>): void {
     this.type = "add"
-    this.titleModal = "Añadir categoria"
+    this.titleModal = "Añadir usuario"
     this.buttonModal = "Añadir"
 
     this.form.role.setValue(0)
@@ -53,7 +53,7 @@ export class UsersComponent implements OnInit {
 
   editUser(user: User, template: TemplateRef<any>): void {
     this.type = "edit"
-    this.titleModal = "Editar alergeno"
+    this.titleModal = "Editar usuario"
     this.buttonModal = "Editar"
     this.user = user
 

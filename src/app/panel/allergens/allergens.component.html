@@ -12,20 +12,19 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let allergen of returnedAllergens">
+        <tr *ngFor="let allergen of allergens">
             <th class="align-middle">{{ allergen.id }}</th>
             <td class="align-middle">{{ allergen.name }}</td>
             <td class="text-center">
             <div class="btn-group btn-group-sm">
                 <button type="button" class="btn btn-outline-secondary" (click)="deleteAllergen(allergen)"><i class="far fa-trash-alt"></i></button>
-                <button type="button" class="btn btn-outline-secondary" (click)="editAllergen(form, allergen)"><i class="far fa-edit"></i></button>
+                <button type="button" class="btn btn-outline-secondary" (click)="editAllergen(allergen, form)"><i class="far fa-edit"></i></button>
             </div>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-<pagination *ngIf="(totalItems > 20)" [totalItems]="totalItems" [itemsPerPage]="20" (pageChanged)="pageChanged($event)"></pagination>
 
 <ng-template #form>
   <div class="modal-header">
@@ -35,10 +34,10 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="allergensForm" (ngSubmit)="onSubmit(type)">
+    <form [formGroup]="allergenForm" (ngSubmit)="onSubmit(type)">
         <div class="form-group">
             <label>Nombre</label>
-            <input type="email" class="form-control" placeholder="Nombre" formControlName="name">
+            <input type="text" class="form-control mb-2" placeholder="Nombre" formControlName="name">
         </div>
         <button type="submit" class="btn btn-primary">{{ buttonModal }}</button>
     </form>

@@ -12,8 +12,8 @@ export class FoodsService {
 
   constructor(private http: HttpClient, private config: Config) { }
 
-  getFoods(): Observable<Food[]> {
-    return this.http.get<Food[]>(`${this.baseUrl}`);
+  getFoods(): Observable<Array<Food>> {
+    return this.http.get<Array<Food>>(`${this.baseUrl}`);
   }
 
   getFood(id: number): Observable<Food> {

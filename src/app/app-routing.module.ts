@@ -1,8 +1,9 @@
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './services/auth.guard';
 
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 import { PanelComponent } from './panel/panel.component';
 import { DashboardComponent } from './panel/dashboard/dashboard.component';
 import { FoodsComponent } from './panel/foods/foods.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
     { path: 'users', component: UsersComponent },
   ]},
   { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '' }
 ];
 

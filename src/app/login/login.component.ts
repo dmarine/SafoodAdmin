@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService) { if(this.authService.isAuthenticated()) { this.router.navigate(['/']); }}
 

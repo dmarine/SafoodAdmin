@@ -42,7 +42,7 @@ export class CategoriesComponent implements OnInit {
 
   editCategory(category: Category, template: TemplateRef<any>): void {
     this.type = "edit"
-    this.titleModal = "Editar alergeno"
+    this.titleModal = "Editar categoria"
     this.buttonModal = "Editar"
     this.category = category
 

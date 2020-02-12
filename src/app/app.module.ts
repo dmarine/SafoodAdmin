@@ -22,6 +22,7 @@ import { AllergensComponent } from './panel/allergens/allergens.component';
 import { CategoriesComponent } from './panel/categories/categories.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RestaurantsComponent } from './panel/restaurants/restaurants.component';
+import { LogoutComponent } from './logout/logout.component';
 
 function tokenGetter() {
   return Cookies.get("token");
@@ -43,6 +44,7 @@ function config(configService: ConfigService) {
     CategoriesComponent,
     UsersComponent,
     RestaurantsComponent,
+    LogoutComponent,
   ],
   imports: [
     HttpClientModule,
