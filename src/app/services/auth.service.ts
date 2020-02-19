@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { User } from '../models/user';
-import { Config } from '../config/config';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { config } from 'src/app.config';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
   authorized: boolean = false
 
-  constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private config: Config, private router: Router) { }
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private router: Router) { }
 
   public async isAuthenticated(): Promise<boolean> {
     const token: string = this.jwtHelper.tokenGetter()
@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   public getUser(): Observable<User> {
-    return this.http.post<User>(`${this.config.API_URL}/api/auth/me`, null)
+    return this.http.post<User>(`${config.API_URL}/api/auth/me`, null)
   }
 
   private notAuthorized() {
@@ -39,16 +39,16 @@ export class AuthService {
   }
 
   async login(email: string, password: string) {
-    const response = await this.http.post<any>(`${this.config.API_URL}/api/auth/login`, { email, password }).toPromise();
+    const response = await this.http.post<any>(`${config.API_URL}/api/auth/login`, { email, password }).toPromise();
     Cookies.set('token', response.access_token, { expires: (150.12 / response.expires_in) })
-    Cookies.set('token', response.access_token, { domain: this.config.SITE_URL })
+    Cookies.set('token', response.access_token, { domain: config.SITE_URL })
     this.router.navigate(['/'])
   }
 
   logout() {
-    this.http.post<any>(`${this.config.API_URL}/api/auth/logout`, null).subscribe();
+    this.http.post<any>(`${config.API_URL}/api/auth/logout`, null).subscribe();
     Cookies.remove('token')
-    Cookies.remove('token', { domain: this.config.SITE_URL })
+    Cookies.remove('token', { domain: config.SITE_URL })
     this.router.navigate(['/'])
   }
 }

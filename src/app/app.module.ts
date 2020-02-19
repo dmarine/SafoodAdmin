@@ -1,10 +1,9 @@
 import * as Cookies from "js-cookie";
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ConfigService } from './config/config.service';
-import { Config } from './config/config';
+import { config } from 'src/app.config';
 
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -26,10 +25,6 @@ import { LogoutComponent } from './logout/logout.component';
 
 function tokenGetter() {
   return Cookies.get("token");
-}
-
-function config(configService: ConfigService) {
-  return () => { return configService.load() }
 }
 
 @NgModule({
@@ -57,23 +52,11 @@ function config(configService: ConfigService) {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: ["localhost:8000"]
+        whitelistedDomains: [config.WHITE_LIST_DOMAIN]
       }
     }),
   ],
-  providers: [
-    {
-      provide: Config,
-      deps: [HttpClient],
-      useExisting: ConfigService
-    },
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      deps: [ConfigService],
-      useFactory: config
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

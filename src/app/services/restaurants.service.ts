@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Config } from '../config/config';
 import { Restaurant } from '../models/restaurant';
 import { Observable } from 'rxjs';
+import { config } from 'src/app.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestaurantsService {
-  baseUrl: string = `${this.config.API_URL}/api/restaurants`;
+  baseUrl: string = `${config.API_URL}/api/restaurants`;
 
-  constructor(private http: HttpClient, private config: Config) { }
+  constructor(private http: HttpClient) { }
 
   getRestaurants(): Observable<Array<Restaurant>> {
     return this.http.get<Array<Restaurant>>(`${this.baseUrl}`);
