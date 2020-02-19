@@ -1,8 +1,8 @@
 import * as CanvasJS from '../../../assets/js/canvasjs.min';
 
 import { Component, OnInit } from '@angular/core';
-import { Config } from '../../config/config';
 import { HttpClient } from '@angular/common/http';
+import { config } from 'src/app.config';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   public dataPreferedFood: Array<any>;
 
 
-  constructor(private http: HttpClient, private config: Config) { }
+  constructor(private http: HttpClient) { }
   ngOnInit() {
     this.getNumUsers();
     this.getNumOrders();
@@ -30,36 +30,36 @@ export class DashboardComponent implements OnInit {
   }
 
   getNumOrders() {
-    this.http.get<number>(`${this.config.API_URL}/api/count/orders`).subscribe(response => {
+    this.http.get<number>(`${config.API_URL}/api/count/orders`).subscribe(response => {
       this.numOrdersRegistered = response;
     })
   }
   getOrders() {
-    this.http.get<number>(`${this.config.API_URL}/api/count/orders`).subscribe(response => {
+    this.http.get<number>(`${config.API_URL}/api/count/orders`).subscribe(response => {
       this.numOrdersRegistered = response;
     })
   }
 
   getNumCategories() {
-    this.http.get<number>(`${this.config.API_URL}/api/count/categories`).subscribe(response => {
+    this.http.get<number>(`${config.API_URL}/api/count/categories`).subscribe(response => {
       this.numCategoriesRegistered = response;
     })
   }
 
   getNumUsers() {
-    this.http.get<number>(`${this.config.API_URL}/api/count/users`).subscribe(response => {
+    this.http.get<number>(`${config.API_URL}/api/count/users`).subscribe(response => {
       this.numUsersRegistered = response;
     })
   }
 
   getNumRestaurants() {
-    this.http.get<number>(`${this.config.API_URL}/api/count/restaurants`).subscribe(response => {
+    this.http.get<number>(`${config.API_URL}/api/count/restaurants`).subscribe(response => {
       this.numRestaurantsRegistered = response;
     })
   }
 
   getFoodChartStats(): void {
-    this.http.get<Array<any>>(`${this.config.API_URL}/api/stats/orders`).subscribe(response => {
+    this.http.get<Array<any>>(`${config.API_URL}/api/stats/orders`).subscribe(response => {
       this.dataPreferedFood= response;
       this.showBarChart();
     })

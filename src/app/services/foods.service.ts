@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Config } from '../config/config';
 import { Food } from '../models/food';
+import { config } from 'src/app.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FoodsService {
-  baseUrl: string = `${this.config.API_URL}/api/foods`;
+  baseUrl: string = `${config.API_URL}/api/foods`;
 
-  constructor(private http: HttpClient, private config: Config) { }
+  constructor(private http: HttpClient) { }
 
   getFoods(): Observable<Array<Food>> {
     return this.http.get<Array<Food>>(`${this.baseUrl}`);

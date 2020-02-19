@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Allergen } from '../models/allergen';
 import { HttpClient } from '@angular/common/http';
-import { Config } from '../config/config';
 import { Observable } from 'rxjs';
+import { config } from 'src/app.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AllergensService {
-  baseUrl: string = `${this.config.API_URL}/api/allergens`;
+  baseUrl: string = `${config.API_URL}/api/allergens`;
 
-  constructor(private http: HttpClient, private config: Config) { }
+  constructor(private http: HttpClient) { }
 
   getAllergens(): Observable<Array<Allergen>> {
     return this.http.get<Array<Allergen>>(`${this.baseUrl}`);
